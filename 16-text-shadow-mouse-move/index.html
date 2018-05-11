@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>#JS30 - 16 - Text shadow / Mouse move effect</title>
+  <style>
+    html {
+      color:black;
+      font-family: sans-serif;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      color:black;
+    }
+
+    h1 {
+      text-shadow: 10px 10px 0 rgba(0,0,0,1);
+      font-size: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1 contenteditable>🔥WOAH!</h1>
+  </div>
+
+  <script>
+    const view = document.querySelector('.hero')
+    const width = view.offsetWidth
+    const height = view.offsetHeight
+    const text = view.querySelector('h1')
+    const limitArea = 100
+    
+    function renderShadow (e) {
+      let x = e.offsetX
+      let y = e.offsetY
+      
+      if (this !== e.target) {
+        x += e.target.offsetLeft
+        y += e.target.offsetTop
+      }
+      
+      const xLimit = Math.round((x / width * limitArea) - (limitArea / 2))
+      const yLimit = Math.round((y / height * limitArea) - (limitArea / 2))
+      
+      text.style.textShadow = `
+        ${xLimit}px ${yLimit}px      0 rgba(255, 0, 255, .7),
+        ${xLimit * -1}px ${yLimit}px 0 rgba(0, 255, 255, .7),
+        ${yLimit * -1}px ${xLimit}px 0 rgba(0, 255, 0, .7),
+        ${yLimit}px ${xLimit * -1}px 0 rgba(0, 0, 255, .7)
+      `
+    }
+    
+    view.addEventListener('mousemove', renderShadow)
+  </script>
+</body>
+</html>

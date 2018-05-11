@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>#JS30 - 1 - Drumkit</title>
+  
+  <style>
+    * {
+      box-sizing: border-box;  
+    }
+    
+    html {
+      font-family: system;
+      background-color: #aab522;
+      height: 100%;
+    }
+    
+    body {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      min-height: 100%;
+    }
+    
+    button {
+      border: 2px solid #222;
+      border-radius: 5px;
+      text-align: center;
+      outline: none;
+      background-color: transparent;
+      transition: all .07s ease-out;
+      font-size: 1.5rem;
+      padding: .5rem 1rem;
+      display: inline-block;
+      margin: 0 .5rem;
+    }
+    
+    button kbd {
+      display: block;
+    }
+    
+    button span {
+      font-weight: bold;
+    }
+    
+    button.active {
+      transform: scale(1.1);
+      border-color: #ffc600;
+    }
+  </style>
+</head>
+<body>
+  <button type="button" data-key="65">
+    <kbd>A</kbd>
+    <span>clap</span>
+  </button>
+  
+  <button type="button" data-key="83">
+    <kbd>S</kbd>
+    <span>hihat</span>
+  </button>
+  
+  <button type="button" data-key="68">
+    <kbd>D</kbd>
+    <span>kick</span>
+  </button>
+  
+  <button type="button" data-key="70">
+    <kbd>F</kbd>
+    <span>openhat</span>
+  </button>
+  
+  <button type="button" data-key="71">
+    <kbd>G</kbd>
+    <span>boom</span>
+  </button>
+  
+  <button type="button" data-key="72">
+    <kbd>H</kbd>
+    <span>ride</span>
+  </button>
+  
+  <button type="button" data-key="74">
+    <kbd>J</kbd>
+    <span>snare</span>
+  </button>
+  
+  <button type="button" data-key="75">
+    <kbd>K</kbd>
+    <span>tom</span>
+  </button>
+  
+  <button type="button" data-key="76">
+    <kbd>L</kbd>
+    <span>tink</span>
+  </button>
+  
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+  
+  <script>
+    function playSound(e) {  
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const button = document.querySelector(`button[data-key="${e.keyCode}"]`);
+      
+      if (!audio) return;
+      
+      audio.currentTime = 0; // for multiple key taps
+      audio.play();
+      button.classList.add('active');
+    }
+    
+    function removeTransition(e) {
+      this.classList.remove('active');
+    }
+    
+    const keys = document.querySelectorAll('button');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  
+    document.addEventListener('keydown', playSound);
+  </script>
+</body>
+</html>

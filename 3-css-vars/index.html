@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>#JS30 - 3 - CSS Variables</title>
+  <style>
+    :root {
+      --base-color: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+    
+    html {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      color: #222;
+      text-align: center;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    img {
+      border: var(--spacing) solid var(--base-color);
+      filter: blur(var(--blur));
+    }
+    
+    h1 span {
+      color: var(--base-color);
+    }
+    
+    div {
+      margin-top: 1.5rem;
+    }
+    
+    label {
+      margin: 0 .5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Update CSS Variables with <span>JS</span></h1>
+  <img src="http://placehold.it/800x300" alt="">
+  
+  <div>
+    <label>
+      Base color
+      <input name="base-color" type="color" value="#ffc600">
+    </label>
+    
+    <label>
+      Spacing
+      <input name="spacing" type="range" min="10" max="200" value="10" data-unit="px"> 
+    </label>
+    
+    <label>
+      Blur
+      <input name="blur" type="range" min="0" max="25" value="10" data-unit="px">
+    </label>
+  </div>
+  
+  <script>
+    const inputs = document.querySelectorAll('input');
+
+    function updateVariables() {
+      const suffix = this.dataset.unit || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+    
+    inputs.forEach(input => input.addEventListener('change', updateVariables));
+    inputs.forEach(input => input.addEventListener('mousemove', updateVariables));
+  </script>
+</body>
+</html>

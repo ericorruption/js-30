@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "start": "browser-sync start --directory --server --files '*.css, *.html, *.js' --https"
+  }
+}
